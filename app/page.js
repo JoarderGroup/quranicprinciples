@@ -1,17 +1,15 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { createClient } from '@supabase/supabase-js'
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-const supabase = SUPABASE_URL && SUPABASE_ANON_KEY
-  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-  : null
+const SUPABASE_URL = 'https://euynzedvxrumsghushon.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV1ZmVuamhzanpnY3JsanR4b212Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5NjM4MDYsImV4cCI6MjA5OTUzOTgwNn0.Z332ic8UcDiLc6F8oSbHHLIxOrYVbSLb3Dz-SQffovQ'
+
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 const BG = `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%231A3323' stroke-width='0.6'%3E%3Cpolygon points='40,8 44,30 66,30 49,43 55,65 40,53 25,65 31,43 14,30 36,30'/%3E%3Cline x1='40' y1='0' x2='40' y2='8'/%3E%3Cline x1='40' y1='72' x2='40' y2='80'/%3E%3Cline x1='0' y1='40' x2='8' y2='40'/%3E%3Cline x1='72' y1='40' x2='80' y2='40'/%3E%3C/g%3E%3C/svg%3E")`
 
 async function getArticles() {
-  if (!supabase) return []
   try {
     const { data } = await supabase
       .schema('quranic_principles')
