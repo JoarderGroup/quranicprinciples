@@ -8,8 +8,8 @@ async function getArticles() {
   if (!supabase) return []
   try {
     const { data } = await supabase
-      .schema('quranic_principles')
-      .from('articles')
+      
+      .from('qp_articles')
       .select('*')
       .order('created_at', { ascending: false })
       .limit(20)
