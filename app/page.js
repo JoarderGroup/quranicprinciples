@@ -1,9 +1,15 @@
-import { supabase } from '../lib/supabase'
+'use client'
+import { useState, useEffect } from 'react'
+import { createClient } from '@supabase/supabase-js'
+
+const SUPABASE_URL = 'https://euynzedvxrumsghushon.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1eW56ZWR2eHJ1bXNnaHVzaG9uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyMjIxNDYsImV4cCI6MjA5OTc5ODE0Nn0.KWGGtgZaOs-bQ5tMTY5Ws7u9AvnNgte8AeFVGSREjlw'
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 const BG = `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%231A3323' stroke-width='0.6'%3E%3Cpolygon points='40,8 44,30 66,30 49,43 55,65 40,53 25,65 31,43 14,30 36,30'/%3E%3Cline x1='40' y1='0' x2='40' y2='8'/%3E%3Cline x1='40' y1='72' x2='40' y2='80'/%3E%3Cline x1='0' y1='40' x2='8' y2='40'/%3E%3Cline x1='72' y1='40' x2='80' y2='40'/%3E%3C/g%3E%3C/svg%3E")`
 
 async function getArticles() {
-  if (!supabase) return []
   try {
     const { data, error } = await supabase
       .schema('quranic_principles')
@@ -17,8 +23,17 @@ async function getArticles() {
   } catch (error) { console.error('QP articles fetch exception', error); return [] }
 }
 
-export default async function Home() {
-  const articles = await getArticles()
+export default function Home() {
+  const [articles, setArticles] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    let cancelled = false
+    getArticles().then(data => {
+      if (!cancelled) { setArticles(data); setLoading(false) }
+    })
+    return () => { cancelled = true }
+  }, [])
 
   return (
     <main style={{
@@ -29,7 +44,6 @@ export default async function Home() {
       color: '#7FA88A'
     }}>
 
-      {/* HEADER */}
       <header style={{
         background: '#0C1C15',
         borderBottom: '1px solid #1A3323',
@@ -39,7 +53,6 @@ export default async function Home() {
         height: '60px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          {/* 8-pointed star logo */}
           <div style={{ position: 'relative', width: '34px', height: '34px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ width: '21px', height: '21px', background: '#C9A04A', borderRadius: '2px', position: 'absolute' }} />
             <div style={{ width: '21px', height: '21px', background: '#C9A04A', borderRadius: '2px', position: 'absolute', transform: 'rotate(45deg)' }} />
@@ -56,12 +69,13 @@ export default async function Home() {
         </div>
       </header>
 
-      {/* MAIN CONTENT */}
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '48px 32px' }}>
 
-        {articles.length === 0 ? (
-
-          /* COMING SOON STATE */
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: '80px 24px', color: '#445A4C', fontFamily: 'sans-serif' }}>
+            Loading edition…
+          </div>
+        ) : articles.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '80px 24px' }}>
             <div style={{
               display: 'inline-block', marginBottom: '36px',
@@ -95,8 +109,6 @@ export default async function Home() {
           </div>
 
         ) : (
-
-          /* ARTICLES GRID */
           <>
             <div style={{ marginBottom: '40px' }}>
               <h1 style={{ fontSize: '24px', color: '#E8E3D5', margin: '0 0 8px', fontWeight: '700', letterSpacing: '-0.02em' }}>
@@ -115,7 +127,6 @@ export default async function Home() {
                   borderRadius: '12px',
                   padding: '24px'
                 }}>
-                  {/* Country + emoji */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
                     <span style={{
                       fontSize: '10px', color: '#C9A04A', background: '#130F05',
@@ -127,27 +138,22 @@ export default async function Home() {
                     <span style={{ fontSize: '22px' }}>{article.image_emoji || '🌙'}</span>
                   </div>
 
-                  {/* Verse reference */}
                   <div style={{ fontSize: '10px', color: '#7A6230', fontFamily: 'sans-serif', marginBottom: '6px', letterSpacing: '0.04em' }}>
                     {article.surah_name} {article.surah_number}:{article.ayah_number}
                   </div>
 
-                  {/* Principle FIRST */}
                   <p style={{ margin: '0 0 14px', fontSize: '12.5px', color: '#C9A04A', fontStyle: 'italic', lineHeight: '1.7', borderLeft: '2px solid #7A6230', paddingLeft: '10px' }}>
                     &ldquo;{article.principle}&rdquo;
                   </p>
 
-                  {/* Headline */}
                   <h2 style={{ margin: '0 0 10px', fontSize: '15px', fontWeight: '700', color: '#E8E3D5', lineHeight: '1.45', fontFamily: 'sans-serif' }}>
                     {article.title}
                   </h2>
 
-                  {/* Human dimension */}
                   <p style={{ margin: '0 0 14px', fontSize: '12.5px', color: '#7FA88A', lineHeight: '1.65', fontStyle: 'italic' }}>
                     {article.human_dimension}
                   </p>
 
-                  {/* Arabic verse */}
                   <div style={{ background: '#130F05', borderRadius: '8px', padding: '14px', marginBottom: '14px', border: '1px solid #7A623022' }}>
                     <p style={{ margin: '0 0 8px', fontSize: '17px', color: '#C9A04A', lineHeight: '2', textAlign: 'right', direction: 'rtl' }}>
                       {article.arabic_text}
@@ -157,7 +163,6 @@ export default async function Home() {
                     </p>
                   </div>
 
-                  {/* Source + date */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#445A4C', fontFamily: 'sans-serif' }}>
                     <span>
                       📰 {article.source}
@@ -174,7 +179,6 @@ export default async function Home() {
         )}
       </div>
 
-      {/* FOOTER */}
       <footer style={{ borderTop: '1px solid #1A3323', padding: '28px 32px', textAlign: 'center', marginTop: '60px' }}>
         <p style={{ margin: '0 0 6px', fontSize: '13px', color: '#7FA88A', fontFamily: 'sans-serif' }}>
           Quranic Principles · Journal of the Muslim World
