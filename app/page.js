@@ -17,10 +17,10 @@ async function getArticles() {
       .select('*')
       .order('created_at', { ascending: false })
       .limit(20)
-    if (error) console.error('QP articles fetch error', error)
-    else console.log('QP articles fetched', data)
     return data || []
-  } catch (error) { console.error('QP articles fetch exception', error); return [] }
+  } catch {
+    return []
+  }
 }
 
 export default function Home() {
