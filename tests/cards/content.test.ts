@@ -75,6 +75,23 @@ test("sourceLineFor renders the chapter, verse range and edition", () => {
   assert.equal(sourceLineFor(ayah), "Sūrah Ar-Raḥmān 55:7–9 · Saheeh International");
 });
 
+test("sourceLineFor labels both Saheeh International edition slugs identically — main's eng-ummmuhammad and feat/data-layer's eng-saheeh", () => {
+  const base: AyahContent = {
+    surah: 55,
+    surahName: "Ar-Raḥmān",
+    from: 7,
+    to: 9,
+    arabic: "...",
+    translation: "...",
+    translationEdition: "eng-ummmuhammad",
+  };
+  assert.equal(sourceLineFor(base), "Sūrah Ar-Raḥmān 55:7–9 · Saheeh International");
+  assert.equal(
+    sourceLineFor({ ...base, translationEdition: "eng-saheeh" }),
+    "Sūrah Ar-Raḥmān 55:7–9 · Saheeh International",
+  );
+});
+
 test("sourceLineFor falls back to the raw edition code for an unlabelled edition", () => {
   const ayah: AyahContent = {
     surah: 1,

@@ -42,9 +42,14 @@ export async function fetchAyahContent(params: {
 }
 
 /** Display names for known translation editions. Not sacred text — an
- * edition label, same category as "Sūrah ar-Raḥmān" (a chapter name). */
+ * edition label, same category as "Sūrah ar-Raḥmān" (a chapter name).
+ * Both Saheeh International slugs are mapped deliberately: `eng-ummmuhammad`
+ * is what's on `main` today, `eng-saheeh` is what `feat/data-layer`'s
+ * lib/quran.ts renames `TRANSLATION_EDITION` to. Keeping both means this
+ * file doesn't care which one lands first (Prompt H integration pass). */
 const EDITION_LABELS: Record<string, string> = {
   "eng-ummmuhammad": "Saheeh International",
+  "eng-saheeh": "Saheeh International",
 };
 
 function editionLabel(edition: string): string {

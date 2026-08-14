@@ -41,7 +41,7 @@ const PrincipleCard = forwardRef<HTMLDivElement, { content: PrincipleCardContent
 
     return (
       <CardFrame ref={ref} ratio={ratio} surface="ink" locale={locale}>
-        <MonoLabel className="text-gold">
+        <MonoLabel className="text-[var(--card-gold)]">
           Principle No. {String(issueNo).padStart(2, "0")}
         </MonoLabel>
 
@@ -50,7 +50,7 @@ const PrincipleCard = forwardRef<HTMLDivElement, { content: PrincipleCardContent
         </h2>
         <Bidi
           lang="ar"
-          className={`ar-block mt-1 font-arabic-ui font-bold text-gold ${
+          className={`ar-block mt-1 font-arabic-ui font-bold text-[var(--card-gold)] ${
             ratio === "a4" ? "text-[52px]" : ratio === "1:1" ? "text-[18px]" : "text-[26px]"
           }`}
         >
@@ -76,7 +76,7 @@ const PrincipleCard = forwardRef<HTMLDivElement, { content: PrincipleCardContent
             <RootChip
               root={ayah.root!}
               occurrences={ayah.rootOccurrences}
-              className="text-gold opacity-80"
+              className="text-[var(--card-gold)] opacity-80"
             />
           )}
           {showCta && (

@@ -36,6 +36,29 @@ Dark mode inverts paper/ink; `--signal` brightens to `#FF5233`, `--deep` to `#3F
 Latin labels use letter-spacing 0.2em + uppercase. **Arabic and Bangla labels never
 do** — swap to the body family at 12px, sentence case. Tracking destroys both scripts.
 
+## Card tokens — theme-invariant  🔒 amended 2026-08-14/15 (D10)
+
+Share cards are **fixed-identity assets**. A card captured while the reader's OS is
+in dark mode must not invert — it leaves the site and is reposted forever.
+
+These aliases always resolve to the light-mode values, regardless of `data-theme`.
+They introduce **no new hex**; they pin existing contract colours.
+
+| Token | Always equals |
+|---|---|
+| `--card-paper` | `#F4F1E8` |
+| `--card-ink` | `#100F0D` |
+| `--card-signal` | `#E0451F` |
+| `--card-deep` | `#123B33` |
+| `--card-gold` | `#C69749` |
+| `--card-muted` | `#6B6458` |
+| `--card-rule` | `#D5CFBE` |
+
+**Anything under `components/cards/` uses only `--card-*`.** Using `--ink`,
+`--paper`, `--muted`, `--rule`, `--signal`, `--deep` or `--gold` inside a card is a
+bug. Everything else on the site continues to use the theme-reactive tokens
+unchanged.
+
 ## Layout
 
 - Max width 1180px, 24px gutters.

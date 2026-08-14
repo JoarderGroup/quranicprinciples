@@ -27,7 +27,7 @@ const AyahCard = forwardRef<HTMLDivElement, { content: AyahCardContent }>(
 
     return (
       <CardFrame ref={ref} ratio={ratio} surface="ink" locale={locale} className="justify-center">
-        <MonoLabel className="text-gold opacity-70">{principleNameTranslit}</MonoLabel>
+        <MonoLabel className="text-[var(--card-gold)] opacity-70">{principleNameTranslit}</MonoLabel>
 
         <div lang="ar" className={`ayah-text mt-5 ${AYAH_SIZE[ratio]}`}>
           {ayah.arabic}

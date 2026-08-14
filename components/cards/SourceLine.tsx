@@ -19,6 +19,6 @@ export default function SourceLine({
 }) {
   assertAyahContent(ayah);
   return (
-    <MonoLabel className={`text-gold ${className}`}>{sourceLineFor(ayah)}</MonoLabel>
+    <MonoLabel className={`text-[var(--card-gold)] ${className}`}>{sourceLineFor(ayah)}</MonoLabel>
   );
 }

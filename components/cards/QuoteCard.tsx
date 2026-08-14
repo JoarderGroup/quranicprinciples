@@ -25,12 +25,12 @@ const QuoteCard = forwardRef<HTMLDivElement, { content: QuoteCardContent }>(
 
     return (
       <CardFrame ref={ref} ratio={ratio} surface="paper" locale={locale} className="justify-center">
-        <div className="border-t-[3px] border-t-signal border-b border-b-rule py-6">
+        <div className="border-t-[3px] border-t-[var(--card-signal)] border-b border-b-[var(--card-rule)] py-6">
           <blockquote className={`font-editorial italic ${QUOTE_SIZE[ratio]}`}>
             &ldquo;{quote}&rdquo;
           </blockquote>
         </div>
-        <MonoLabel className="mt-3 text-muted">{attribution}</MonoLabel>
+        <MonoLabel className="mt-3 text-[var(--card-muted)]">{attribution}</MonoLabel>
 
         <div className="mt-auto flex flex-col gap-2 pt-6">
           <SourceLine ayah={ayah} />

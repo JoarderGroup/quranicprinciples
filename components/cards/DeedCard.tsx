@@ -30,22 +30,22 @@ const DeedCard = forwardRef<HTMLDivElement, { content: DeedCardContent }>(
     return (
       <CardFrame ref={ref} ratio={ratio} surface="paper" locale={locale}>
         <div className="flex items-baseline gap-2">
-          <Bidi lang="ar" className="ar-block font-arabic-ui text-[13px] font-bold text-signal">
+          <Bidi lang="ar" className="ar-block font-arabic-ui text-[13px] font-bold text-[var(--card-signal)]">
             {deedArabicWord}
           </Bidi>
-          <MonoLabel className="text-signal">The Deed</MonoLabel>
+          <MonoLabel className="text-[var(--card-signal)]">The Deed</MonoLabel>
         </div>
 
         <p className={`mt-4 font-black tracking-[-0.03em] ${PROMPT_SIZE[ratio]}`}>{promptText}</p>
 
         {showBody && (
-          <p className={`mt-4 text-muted ${ratio === "a4" ? "text-[24px] leading-[1.5]" : "text-[13px] leading-[1.5]"}`}>
+          <p className={`mt-4 text-[var(--card-muted)] ${ratio === "a4" ? "text-[24px] leading-[1.5]" : "text-[13px] leading-[1.5]"}`}>
             {bodyText}
           </p>
         )}
 
         <div className="mt-auto flex flex-col gap-2 pt-4">
-          <MonoLabel className="text-muted">
+          <MonoLabel className="text-[var(--card-muted)]">
             Issue {String(issueNo).padStart(2, "0")} · {principleNameTranslit} · Depth 1 seed
           </MonoLabel>
           <SourceLine ayah={ayah} />

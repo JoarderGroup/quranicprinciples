@@ -15,6 +15,10 @@ const PADDING_PX: Record<CardRatio, number> = {
  * since capture reads `CARD_RATIOS[ratio].base` for its own width/height.
  * Tokens only (contract §Forbidden — no new colour, no rounded cards with
  * shadows on editorial content).
+ *
+ * Uses the theme-invariant `--card-*` tokens, never `--ink`/`--paper`
+ * (contract §Card tokens, D10) — a share card is a fixed-identity asset
+ * and must render identically regardless of the viewer's OS theme.
  */
 const CardFrame = forwardRef<
   HTMLDivElement,
@@ -34,7 +38,9 @@ const CardFrame = forwardRef<
       lang={locale}
       dir={dir}
       className={`relative flex flex-col overflow-hidden font-display ${
-        surface === "ink" ? "bg-ink text-paper" : "bg-paper text-ink"
+        surface === "ink"
+          ? "bg-[var(--card-ink)] text-[var(--card-paper)]"
+          : "bg-[var(--card-paper)] text-[var(--card-ink)]"
       } ${className}`}
       style={{ width: base.w, height: base.h, padding: PADDING_PX[ratio] }}
     >
