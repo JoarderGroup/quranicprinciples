@@ -1,0 +1,85 @@
+{
+  "shell": {
+    "skipToContent": "Skip to content",
+    "masthead": "Quranic Principles",
+    "departments": "Departments",
+    "searchComingSoon": "Search — coming soon",
+    "subscribe": "Subscribe",
+    "localeSwitcher": "Language"
+  },
+  "footer": {
+    "subscribeLead": "One principle. One incident. One thing you will not forget.",
+    "subscribeBody": "A new issue, delivered when it is ready — never on a schedule that outruns care.",
+    "attributions": "Attributions",
+    "fontsLine": "Type set in Archivo, Instrument Serif, Amiri Quran, Noto Kufi Arabic, Hind Siliguri, Noto Serif Bengali and JetBrains Mono — all under the SIL Open Font License.",
+    "quranLine": "Qur'anic text and translation retrieved by reference from the Quran API (Tanzil text, Saheeh International translation). Never authored, never edited.",
+    "socials": "Elsewhere",
+    "socialsSoon": "Instagram · YouTube · Telegram — coming soon",
+    "rights": "Code MIT. Editorial content all rights reserved."
+  },
+  "home": {
+    "currentIssue": "Issue No. 01",
+    "readFeature": "Read the feature",
+    "departmentsTitle": "Ten departments. One principle at a time.",
+    "departmentsKicker": "Section system",
+    "latestTitle": "Latest",
+    "latestKicker": "New in the archive",
+    "ayahOfTheDay": "Āyah of the day",
+    "save": "Save — coming soon",
+    "download": "Download — coming soon",
+    "share": "Share",
+    "popularReads": "Popular reads",
+    "soulTeaserKicker": "The Soul Index",
+    "soulTeaserTitle": "A living count of what the archive has covered",
+    "soulTeaserCta": "Open the index",
+    "graphKicker": "The Map",
+    "graphTitle": "The Knowledge Graph",
+    "graphSoon": "Coming soon",
+    "minRead": "{count} min"
+  },
+  "issue": {
+    "issueNo": "Issue No. {number}",
+    "principleOf": "The principle of",
+    "inThisIssue": "In this issue",
+    "depth": "Depth"
+  },
+  "feature": {
+    "depthLabel": "Depth",
+    "spineTitle": "Read the full spine",
+    "takeItWithYou": "Take it with you",
+    "comingSoon": "Coming soon",
+    "writeIt": "Write it",
+    "sendToAFriend": "Send to a friend",
+    "next": "Next"
+  },
+  "soul": {
+    "kicker": "The Soul Index",
+    "title": "What the archive has covered",
+    "guardRail": "Counts reflect what Quranic Principles has published, not a survey of the Qur'an.",
+    "commands": "commands",
+    "pieces": "published pieces",
+    "faculties": "faculties",
+    "facultiesTitle": "By faculty of the soul",
+    "commandTypeTitle": "By kind of instruction",
+    "amr": "Amr — command",
+    "nahy": "Nahy — prohibition",
+    "wasiyyah": "Waṣiyyah — counsel",
+    "coverageTitle": "Sūrah coverage",
+    "coverageNote": "{covered} of 114 sūrahs touched so far. The empty squares are the plan.",
+    "coveredSquare": "Sūrah {surah} — {count} tagged {count, plural, one {command} other {commands}}",
+    "notYetCovered": "sūrahs not yet covered",
+    "essaysBehind": "Read the essays behind this count"
+  },
+  "graph": {
+    "kicker": "The Map",
+    "title": "The Knowledge Graph",
+    "body": "Every principle in the archive shares roots, verses and consequences with the others. When enough issues exist for the connections to mean something, this page will draw them — every node an issue, every edge a shared root. Until then, we publish.",
+    "soon": "Coming soon",
+    "diagramAlt": "A diagram of principle nodes — Mīzān linked to Qisṭ, ʿAdl and Amānah — rendered as ASCII placeholder art."
+  },
+  "notFound": {
+    "title": "This page is not written yet",
+    "body": "The archive grows issue by issue. What you were looking for may be on its way.",
+    "backHome": "Back to the front page"
+  }
+}

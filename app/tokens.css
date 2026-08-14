@@ -1,0 +1,59 @@
+/* ============================================================
+   QURANIC PRINCIPLES — design tokens
+   Source of law: DESIGN-CONTRACT.md (frozen).
+   This is the ONLY file in the codebase allowed to contain hex.
+   ============================================================ */
+
+:root {
+  /* -- Colour ------------------------------------------------ */
+  --paper: #f4f1e8; /* Bone. Default background */
+  --paper-2: #eae5d8; /* Recessed panels */
+  --ink: #100f0d; /* Text, dark surfaces */
+  --muted: #6b6458; /* Secondary text */
+  --rule: #d5cfbe; /* Hairlines, grid separators */
+  --signal: #e0451f; /* Accent. Section labels, one CTA per view */
+  --deep: #123b33; /* Arabic secondary, tradition register */
+  --gold: #c69749; /* Source lines, issue numbers, ornament */
+
+  /* -- Type roles (families injected by next/font in layout) - */
+  --ff-display: var(--font-archivo);
+  --ff-editorial: var(--font-instrument);
+  --ff-quran: var(--font-amiri-quran);
+  --ff-arabic-ui: var(--font-noto-kufi);
+  --ff-bangla-ui: var(--font-hind-siliguri);
+  --ff-bangla-body: var(--font-noto-serif-bengali);
+  --ff-mono: var(--font-jetbrains);
+
+  --track-display: -0.035em; /* Archivo display tracking */
+  --track-label: 0.2em; /* Latin mono labels ONLY — never Arabic/Bangla */
+
+  /* -- Layout ------------------------------------------------ */
+  --max-w: 1180px;
+  --gutter: 24px;
+
+  /* -- Motion (contract §Motion) ----------------------------- */
+  --ease-reveal: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --dur-reveal: 700ms;
+  --rise: 14px;
+  --stagger: 60ms;
+}
+
+/* Dark mode — contract: "inverts paper/ink; --signal brightens to
+   #FF5233, --deep to #3FD6BC." Other hues are unchanged (board 02
+   shows --gold and hairlines used directly on --ink surfaces).
+   --paper-2 and --muted have no dark hex in the contract, so they are
+   DERIVED from contract colours with color-mix — the same perceptual
+   step paper→paper-2 takes in light mode, and a readable secondary
+   mixed from the two surface colours. No new hex is introduced.
+   Flagged for review in _BUILD-LOG.md. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #100f0d;
+    --ink: #f4f1e8;
+    --signal: #ff5233;
+    --deep: #3fd6bc;
+    --paper-2: color-mix(in oklab, var(--paper) 92%, var(--ink));
+    --muted: color-mix(in oklab, var(--ink) 64%, var(--paper));
+    --rule: color-mix(in oklab, var(--paper) 82%, var(--ink));
+  }
+}

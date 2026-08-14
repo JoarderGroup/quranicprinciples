@@ -1,0 +1,119 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Map contract tokens to Tailwind utilities. Values live in tokens.css only. */
+@theme inline {
+  --color-*: initial;
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-signal: var(--signal);
+  --color-deep: var(--deep);
+  --color-gold: var(--gold);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-*: initial;
+  --font-display: var(--ff-display);
+  --font-editorial: var(--ff-editorial);
+  --font-quran: var(--ff-quran);
+  --font-arabic-ui: var(--ff-arabic-ui);
+  --font-bangla-ui: var(--ff-bangla-ui);
+  --font-bangla-body: var(--ff-bangla-body);
+  --font-mono: var(--ff-mono);
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  /* Body text — boards 02/03 set running copy in the grotesque at text
+     weight; Archivo is the contract family. */
+  font-family: var(--ff-display);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  margin: 0;
+}
+
+/* Contract §Accessibility — 3px --signal ring, 3px offset, everywhere. */
+:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--paper);
+}
+
+/* Shared page frame: 1180px max, 24px gutters (contract §Layout). */
+.wrap {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  z-index: 100;
+  transform: translateY(-150%);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* Contract §Bidi: Arabic blocks get direction:rtl for shaping, and
+   text-align:left when they sit inside an LTR-primary layout. The full
+   `ar` locale flips the document root instead. */
+.ar-block {
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+html[dir="ltr"] .ar-block {
+  text-align: left;
+}
+
+/* Quranic text block — same alignment rule. */
+.ayah-text {
+  font-family: var(--ff-quran);
+  direction: rtl;
+  unicode-bidi: isolate;
+  line-height: 2.1;
+}
+html[dir="ltr"] .ayah-text {
+  text-align: left;
+}
+
+/* Horizontal scroll rails (department rail etc.) */
+.rail {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+/* Contract §Motion — honoured everywhere, no exceptions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
