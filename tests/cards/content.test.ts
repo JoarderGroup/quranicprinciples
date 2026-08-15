@@ -33,8 +33,11 @@ test("fetchAyahContent resolves verse text and translation through lib/quran.ts,
     {
       "ara-quranuthmanihaf:55:7": "arabic seven",
       "ara-quranuthmanihaf:55:8": "arabic eight",
-      "eng-ummmuhammad:55:7": "translation seven",
-      "eng-ummmuhammad:55:8": "translation eight",
+      // lib/quran.ts's real ENGLISH_EDITION after the feat/data-layer merge —
+      // TRANSLATION_EDITION is just a display alias for this, the fetch
+      // itself always goes through getAyah(..., "en") -> "eng-saheeh".
+      "eng-saheeh:55:7": "translation seven",
+      "eng-saheeh:55:8": "translation eight",
     },
     async () => {
       const content = await fetchAyahContent({
@@ -47,7 +50,7 @@ test("fetchAyahContent resolves verse text and translation through lib/quran.ts,
       });
       assert.equal(content.arabic, "arabic seven ٧ arabic eight ٨");
       assert.equal(content.translation, "translation seven translation eight");
-      assert.equal(content.translationEdition, "eng-ummmuhammad");
+      assert.equal(content.translationEdition, "eng-saheeh");
       assert.equal(content.surahName, "Ar-Raḥmān");
     },
   );
