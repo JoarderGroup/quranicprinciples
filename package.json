@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:unit": "node --test tests/unit/quran.test.ts",
+    "test:db": "supabase test db tests/database --local"
   },
   "dependencies": {
     "@supabase/ssr": "^0.6.1",
