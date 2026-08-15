@@ -1,0 +1,40 @@
+{
+  "kind": "journal",
+  "publication_status": "draft",
+  "editorial_status": "clear",
+  "series": "soul",
+  "series_order": 1,
+  "slug": "invalid-fixture-inline-ayah",
+  "locale": "en",
+  "title": "Invalid Fixture — Inline Verse Text",
+  "deck": "Deliberately invalid: body_md below contains Arabic-script text, which the schema must reject outright.",
+  "reading_minutes": 1,
+  "author": "Fixture Author",
+  "raw_source": "../../Assets QP/essays/fixture-does-not-exist.md",
+  "entries": [
+    {
+      "ordinal": 1,
+      "heading": "This entry is invalid on purpose",
+      "body_md": "The English prose here is fine, but then it quotes a verse directly: وَاللَّهُ يَعْلَمُ وَأَنتُمْ لَا تَعْلَمُونَ — which body_md may never contain. Verse text only ever enters the site through ayah_refs, by reference."
+    }
+  ],
+  "ayah_refs": [
+    { "surah": 2, "ayah": 216, "translation_edition": "eng-saheeh" }
+  ],
+  "claims": [
+    {
+      "claim": "An invalid claim: tier is cited but no source is given.",
+      "tier": "cited",
+      "source_label": null,
+      "source_url": null,
+      "entry_ordinal": 1
+    }
+  ],
+  "minor_edit_log": [],
+  "citation_audit_log": [],
+  "review_reason": null,
+  "source_notes": [
+    "This is a fixture proving validate.mjs rejects a packet. It is invalid on two independent grounds: an Arabic-script fragment inside body_md, and a 'cited' claim missing its required source fields."
+  ],
+  "related_slugs": []
+}

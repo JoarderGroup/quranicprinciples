@@ -22,6 +22,7 @@ export const principle: Principle = {
   root_letters: "و-ز-ن",
   status: "published",
   published_at: "2026-08-01T00:00:00Z",
+  created_at: "2026-07-15T00:00:00Z",
 };
 
 export const issue: Issue = {
@@ -30,12 +31,13 @@ export const issue: Issue = {
   title: "Al-Mīzān",
   principle_id: principle.id,
   published_at: "2026-08-01T00:00:00Z",
+  created_at: "2026-07-15T00:00:00Z",
 };
 
 export const ayahRefs: AyahRef[] = [
-  { id: "a01", essay_id: "e01", surah: 55, ayah: 7, root: "و-ز-ن", translation_edition: "eng-ummmuhammad" },
-  { id: "a02", essay_id: "e01", surah: 55, ayah: 8, root: "و-ز-ن", translation_edition: "eng-ummmuhammad" },
-  { id: "a03", essay_id: "e01", surah: 55, ayah: 9, root: "و-ز-ن", translation_edition: "eng-ummmuhammad" },
+  { id: "a01", essay_id: "e01", surah: 55, ayah: 7, root: "و-ز-ن", translation_edition: "eng-ummmuhammad", created_at: "2026-07-20T00:00:00Z" },
+  { id: "a02", essay_id: "e01", surah: 55, ayah: 8, root: "و-ز-ن", translation_edition: "eng-ummmuhammad", created_at: "2026-07-20T00:00:00Z" },
+  { id: "a03", essay_id: "e01", surah: 55, ayah: 9, root: "و-ز-ن", translation_edition: "eng-ummmuhammad", created_at: "2026-07-20T00:00:00Z" },
 ];
 
 export const rootOccurrences = 23;
@@ -48,6 +50,8 @@ export const essay: Essay = {
   author: "Quranic Principles",
   word_count: 640,
   created_at: "2026-07-20T00:00:00Z",
+  supersedes_id: null,
+  submitted_by: null,
   body_md: [
     "Nobody asked him to. No inspector came to his lane in Chittagong. The scale was old and it drifted — a gram here, two grams there — and drift always leaned the same way, toward the seller.",
     "He noticed this in his second year of trading. Not a theft, exactly. An accumulation. He calculated once, on the back of a receipt, what two grams over eleven thousand transactions came to, and then he stopped calculating.",
@@ -79,6 +83,7 @@ export const renderings: Record<Depth, Rendering> = {
     locale: "en",
     approved_by: "human-pending",
     approved_at: null,
+    created_at: "2026-07-21T00:00:00Z",
     body_md:
       "A grocer checked his scale every Friday for eleven years, because Allah set up a balance and asked us not to cheat in it.",
   },
@@ -89,6 +94,7 @@ export const renderings: Record<Depth, Rendering> = {
     locale: "en",
     approved_by: "human-pending",
     approved_at: null,
+    created_at: "2026-07-21T00:00:00Z",
     body_md: [
       "A scale drifts. Always toward the seller.",
       "Abdul Karim noticed in his second year.",
@@ -105,6 +111,7 @@ export const renderings: Record<Depth, Rendering> = {
     locale: "en",
     approved_by: "human-pending",
     approved_at: null,
+    created_at: "2026-07-21T00:00:00Z",
     body_md: essay.body_md,
   },
   source: {
@@ -114,6 +121,7 @@ export const renderings: Record<Depth, Rendering> = {
     locale: "en",
     approved_by: "human-pending",
     approved_at: null,
+    created_at: "2026-07-21T00:00:00Z",
     body_md: [
       "The root و-ز-ن appears 23 times across the Qur'an — weight, measure, worth. In Sūrah ar-Raḥmān it lands three times in three consecutive āyāt (55:7–9), the densest cluster of the root anywhere in the text.",
       "The sequence is architectural: the heaven raised, the balance set, the prohibition (*do not transgress within the balance*), the command (*establish weight in justice*), the warning (*do not make deficient the balance*). Amr and nahy braided around a single instrument.",
