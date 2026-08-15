@@ -15,6 +15,20 @@
   --deep: #123b33; /* Arabic secondary, tradition register */
   --gold: #c69749; /* Source lines, issue numbers, ornament */
 
+  /* -- Card tokens (contract §Card tokens, D10) --------------
+     Share cards are fixed-identity assets — a card captured while the
+     reader's OS is in dark mode must not invert. These always equal the
+     light-mode values above and are NEVER redefined in the dark-mode
+     block below. components/cards/ uses only these, never --ink/--paper/
+     --signal/--deep/--gold/--muted/--rule directly. */
+  --card-paper: #f4f1e8;
+  --card-ink: #100f0d;
+  --card-signal: #e0451f;
+  --card-deep: #123b33;
+  --card-gold: #c69749;
+  --card-muted: #6b6458;
+  --card-rule: #d5cfbe;
+
   /* -- Type roles (families injected by next/font in layout) - */
   --ff-display: var(--font-archivo);
   --ff-editorial: var(--font-instrument);
