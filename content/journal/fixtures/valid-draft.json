@@ -1,0 +1,79 @@
+{
+  "kind": "journal",
+  "publication_status": "draft",
+  "editorial_status": "human_review_pending",
+  "series": "soul",
+  "series_order": 1,
+  "slug": "the-quiet-between-two-answers",
+  "locale": "en",
+  "title": "The Quiet Between Two Answers",
+  "deck": "A fixture packet — not a real essay. Exercises every field the schema defines.",
+  "reading_minutes": 4,
+  "author": "Fixture Author",
+  "raw_source": "../../Assets QP/essays/fixture-does-not-exist.md",
+  "entries": [
+    {
+      "ordinal": 1,
+      "heading": "The pause",
+      "body_md": "This is placeholder editorial prose for a fixture packet. It contains no Arabic script and no verse text — only the kind of narrator prose a Journal entry actually carries."
+    },
+    {
+      "ordinal": 2,
+      "heading": "What the pause is for",
+      "body_md": "A second fixture entry, referenced by the second claim below, and by the sole ayah reference."
+    }
+  ],
+  "ayah_refs": [
+    { "surah": 2, "ayah": 286, "translation_edition": "eng-saheeh" }
+  ],
+  "claims": [
+    {
+      "claim": "A fixture claim with a real-shaped, durable source.",
+      "tier": "cited",
+      "source_label": "Fixture Source Journal, Vol. 1",
+      "source_url": "https://example.com/fixture-source",
+      "entry_ordinal": 1
+    },
+    {
+      "claim": "A fixture claim framed as the narrator's own observation.",
+      "tier": "observed",
+      "source_label": null,
+      "source_url": null,
+      "entry_ordinal": 2
+    },
+    {
+      "claim": "A fixture claim that could not be supported and was cut before publication.",
+      "tier": "cut",
+      "source_label": null,
+      "source_url": null,
+      "entry_ordinal": 2
+    }
+  ],
+  "minor_edit_log": [
+    {
+      "scope": "spelling",
+      "reason": "Fixture: corrected a typo without changing meaning.",
+      "before": "recieved",
+      "after": "received",
+      "automated": true
+    }
+  ],
+  "citation_audit_log": [
+    {
+      "claim": "A fixture claim with a real-shaped, durable source.",
+      "prior_source_label": null,
+      "prior_source_url": null,
+      "new_source_label": "Fixture Source Journal, Vol. 1",
+      "new_source_url": "https://example.com/fixture-source",
+      "verification_result": "verified",
+      "verifier": "fixture-verifier",
+      "approved": false,
+      "reason": "Fixture: source exists in the raw material as required by Prompt K §2.5 — awaiting human approval before this can affect published content."
+    }
+  ],
+  "review_reason": "Fixture: this packet is intentionally left human_review_pending to exercise that branch of the schema and the DB publish guard.",
+  "source_notes": [
+    "This is a fixture. It does not correspond to any file under Assets QP/essays/."
+  ],
+  "related_slugs": ["another-fixture-entry"]
+}

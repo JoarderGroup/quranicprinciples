@@ -1,0 +1,231 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://quranicprinciples.com/content/journal/packet.schema.json",
+  "title": "Journal draft packet",
+  "description": "The only format Hermes (or any content-prep agent) may emit for the Journal content type. One packet = one locale of one Journal entry, always a draft — publication is a human database transition, never a packet field. See content/journal/README.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "publication_status",
+    "editorial_status",
+    "series",
+    "series_order",
+    "slug",
+    "locale",
+    "title",
+    "deck",
+    "reading_minutes",
+    "author",
+    "raw_source",
+    "entries",
+    "ayah_refs",
+    "claims",
+    "minor_edit_log",
+    "citation_audit_log",
+    "review_reason",
+    "source_notes",
+    "related_slugs"
+  ],
+  "properties": {
+    "kind": { "const": "journal" },
+
+    "publication_status": {
+      "description": "Deliberately a single-value enum. A packet can never assert 'published' — that is a human database transition (Prompt I §4), not a Hermes field. This is not the same axis as editorial_status.",
+      "const": "draft"
+    },
+
+    "editorial_status": {
+      "description": "'clear' = no outstanding concern. 'human_review_pending' = a substantive citation, concept, or scope problem exists and must not be silently repaired.",
+      "enum": ["clear", "human_review_pending"]
+    },
+
+    "series": {
+      "description": "27-Journal-Editorial-Map.md's five series. No department, no Depth Dial — a Journal is not an Issue.",
+      "enum": ["foundation", "soul", "philosophy", "convergence", "civilization"]
+    },
+    "series_order": { "type": "integer", "minimum": 1 },
+
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Reader-facing only. Never a raw essay filename or source number (27-Journal-Editorial-Map.md — source numbers are internal provenance only)."
+    },
+    "locale": { "enum": ["en", "ar", "bn"] },
+
+    "title": { "type": "string", "minLength": 1 },
+    "deck": { "type": "string", "minLength": 1 },
+    "reading_minutes": { "type": "integer", "minimum": 0 },
+    "author": { "type": "string", "minLength": 1 },
+
+    "raw_source": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A pointer to the immutable source under Assets QP/essays/. Never resolved into public output (README §Reader-facing exposure) — this field itself is stripped from the public read model at the database layer, not just convention."
+    },
+
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ordinal", "heading", "body_md"],
+        "properties": {
+          "ordinal": { "type": "integer", "minimum": 1 },
+          "heading": { "type": "string", "minLength": 1 },
+          "body_md": {
+            "type": "string",
+            "minLength": 1,
+            "not": { "pattern": "[\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF]" },
+            "description": "Original editorial prose only. The 'not' pattern rejects any Arabic-script codepoint outright — a hard, mechanical guard against inline āyah text (protocol hard rule 1), not a style preference. A displayed verse is always rendered from lib/quran.ts by reference (ayah_refs below), never typed here."
+          }
+        }
+      }
+    },
+
+    "ayah_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["surah", "ayah", "translation_edition"],
+        "properties": {
+          "surah": { "type": "integer", "minimum": 1, "maximum": 114 },
+          "ayah": { "type": "integer", "minimum": 1 },
+          "translation_edition": {
+            "description": "A named lib/quran.ts API edition, never a translation string. Constrained to editions the codebase actually fetches from (lib/quran.ts ARABIC_EDITION/ENGLISH_EDITION/BANGLA_EDITION) so a packet cannot invent an edition slug.",
+            "enum": ["ara-quranuthmanihaf", "eng-saheeh", "ben-muhiuddinkhan"]
+          }
+        }
+      }
+    },
+
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "tier", "source_label", "source_url", "entry_ordinal"],
+        "properties": {
+          "claim": { "type": "string", "minLength": 1 },
+          "tier": { "enum": ["cited", "observed", "cut"] },
+          "source_label": { "type": ["string", "null"] },
+          "source_url": { "type": ["string", "null"], "format": "uri" },
+          "entry_ordinal": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Must reference an existing entries[].ordinal — checked by validate.mjs, not expressible in draft-07 JSON Schema alone (no cross-array reference support)."
+          }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "tier": { "const": "cited" } } },
+            "then": {
+              "required": ["source_label", "source_url"],
+              "properties": {
+                "source_label": { "type": "string", "minLength": 1 },
+                "source_url": { "type": "string", "minLength": 1, "format": "uri" }
+              }
+            }
+          },
+          {
+            "if": { "properties": { "tier": { "const": "observed" } } },
+            "then": {
+              "description": "An observed claim carries no source URL — pairing one would misrepresent a personal observation as sourced fact.",
+              "properties": {
+                "source_label": { "type": "null" },
+                "source_url": { "type": "null" }
+              }
+            }
+          }
+        ]
+      }
+    },
+
+    "minor_edit_log": {
+      "type": "array",
+      "description": "Append-only. Every automated copy edit, exactly scoped (Prompt I §2.8 / Prompt K §2.4). A publishable body_md whose text differs from raw_source without a matching entry here is not a valid packet state — validate.mjs cross-checks this where practical.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["scope", "reason", "before", "after", "automated"],
+        "properties": {
+          "scope": {
+            "enum": ["title", "deck", "heading", "spelling", "grammar", "punctuation", "formatting", "clarity"]
+          },
+          "reason": { "type": "string", "minLength": 1 },
+          "before": {
+            "type": "string",
+            "not": { "pattern": "[\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF]" }
+          },
+          "after": {
+            "type": "string",
+            "not": { "pattern": "[\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF]" }
+          },
+          "automated": { "type": "boolean" }
+        }
+      }
+    },
+
+    "citation_audit_log": {
+      "type": "array",
+      "description": "Append-only. Every factual-claim verification and later source correction (Prompt I §2.9). A verified correction may amend the canonical entry through this trail; nothing here authorizes publication on its own.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "claim",
+          "prior_source_label",
+          "prior_source_url",
+          "new_source_label",
+          "new_source_url",
+          "verification_result",
+          "verifier",
+          "approved",
+          "reason"
+        ],
+        "properties": {
+          "claim": { "type": "string", "minLength": 1 },
+          "prior_source_label": { "type": ["string", "null"] },
+          "prior_source_url": { "type": ["string", "null"] },
+          "new_source_label": { "type": ["string", "null"] },
+          "new_source_url": { "type": ["string", "null"] },
+          "verification_result": { "enum": ["verified", "unverifiable", "materially_changed"] },
+          "verifier": { "type": "string", "minLength": 1 },
+          "approved": {
+            "type": "boolean",
+            "description": "Never true from Hermes output — approval is the human path. A packet is invalid if this is true (validate.mjs) unless it is literal historical audit provenance being carried forward, which draft packets never contain."
+          },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+
+    "review_reason": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+
+    "source_notes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+
+    "related_slugs": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" }
+    }
+  },
+
+  "allOf": [
+    {
+      "if": { "properties": { "editorial_status": { "const": "human_review_pending" } } },
+      "then": { "properties": { "review_reason": { "type": "string", "minLength": 1 } }, "required": ["review_reason"] }
+    },
+    {
+      "if": { "properties": { "editorial_status": { "const": "clear" } } },
+      "then": { "properties": { "review_reason": { "type": "null" } } }
+    }
+  ]
+}
